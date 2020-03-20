@@ -1,5 +1,5 @@
 const { environment } = require('@rails/webpacker')
-const typescript =  require('./loaders/typescript')
+const typescript = require('./loaders/typescript')
 
 const webpack = require('webpack')
 
@@ -16,4 +16,16 @@ environment.plugins.prepend('Provide',
 )
 
 environment.loaders.prepend('typescript', typescript)
+
+environment.loaders.append('html', {
+  test: /\.html$/,
+  use: [{
+    loader: 'html-loader',
+    options: {
+      minimize: false,
+      esModule: true
+    }
+  }]
+})
+
 module.exports = environment
