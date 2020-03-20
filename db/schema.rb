@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_211313) do
 
   create_table "orders", force: :cascade do |t|
     t.text "list"
-    t.integer "status"
+    t.integer "status", default: 1
     t.bigint "owner_id", null: false
     t.bigint "shopper_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_211313) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "phone_number"
     t.boolean "senior", default: false
+    t.string "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
