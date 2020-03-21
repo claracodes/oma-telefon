@@ -1,2 +1,2 @@
-<h1 *ngIf="name" class="test">Hello {{name}}</h1>
-<button mat-raised-button color="primary">Primary</button>
+<app-start *ngIf="!adress" (onAdressChange)="onAdressChange($event)"></app-start>
+<app-map *ngIf="adress"></app-map>

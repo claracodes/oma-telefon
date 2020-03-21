@@ -7,9 +7,11 @@ import './app.component.scss';
   template: templateString
 })
 export class AppComponent {
-  name = 'Angular!';
 
-  test() {
-    console.log('passed');
+  adress: string;
+
+  onAdressChange(newAdress: string) {
+    this.adress = newAdress;
   }
+
 }
