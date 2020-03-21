@@ -74,7 +74,12 @@ class CallsController < ApplicationController
   def address
     if params["SpeechResult"]
       oma = User.find_by(call_s_id: params["CallSid"])
-      oma.address = params["SpeechResult"]
+      address = params["SpeechResult"]
+      oma.address = address
+
+      coordinates = GeolocationService.from_adress(address)
+      oma.assign_attibutes(coordinates)
+
       oma.save
 
       message1 = "Vielen Dank!"

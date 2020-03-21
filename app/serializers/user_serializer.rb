@@ -1,3 +1,3 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :email, :senior, :address
+  attributes %i(email senior address latitude longitude)
 end
