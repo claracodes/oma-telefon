@@ -1,6 +1,6 @@
 class Api::V1::OrdersController < ApplicationController
-  skip_before_action :authenticate_user!
-  protect_from_forgery with: :null_session, if: Proc.new {|c| c.request.format.json? }
+  # skip_before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token, if: ->{ request.format.json? }
 
   def index
     # orders = policy_scope(Order).where(status: :open).order(created_at: :asc)
@@ -14,7 +14,7 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def accept
-    order.update(shopper_id: params[:shopper_id], status: :accepted)
+    order.update(shopper_id: current_user.id, status: :accepted)
 
     render json: order
   end
