@@ -58,7 +58,7 @@ class CallsController < ApplicationController
   def list
     if params["SpeechResult"]
       oma = User.find_by(call_s_id: params["CallSid"])
-      order = oma.open_orders.find(list: nil)
+      order = oma.open_orders.find_by(list: nil)
       order.update(list: params["SpeechResult"])
 
       message1 = "Jetzt brauchen wir nur noch Ihre Adresse"
