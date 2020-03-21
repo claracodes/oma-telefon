@@ -47,6 +47,22 @@ class CallsController < ApplicationController
       oma.phone_number = params['Digits'][0..-2]
       oma.save
 
+      message1 = "Danke, sagen Sie uns bitte auch ihren Vornamen."
+      message = Twilio::TwiML::VoiceResponse.new do |r|
+        r.gather(input: 'speech', action: '/name', language: 'de-DE') do |g|
+          g.say(message: message1, language: 'de-DE', voice: 'alice')
+        end
+      end
+    end
+    render xml: message.to_xml
+  end
+
+  def name
+    if params["SpeechResult"]
+      oma = User.find_by(call_s_id: params["CallSid"])
+      oma.name = params["SpeechResult"]
+      oma.save
+
       message1 = "Danke, sagen Sie uns nun bitte, was sie benötigen."
       message = Twilio::TwiML::VoiceResponse.new do |r|
         r.gather(input: 'speech', action: '/list', language: 'de-DE') do |g|
