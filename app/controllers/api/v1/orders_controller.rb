@@ -30,7 +30,8 @@ class Api::V1::OrdersController < ApplicationController
   def shopping_done
     order.update(status: :shopping_done, total: params[:total])
 
-    # Schedule twilio call
+    # Schedule twilio call / bg job
+    ConfirmOrderJob.perform_later(order.id)
 
     render json: order
   end
