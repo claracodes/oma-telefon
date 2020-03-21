@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   post 'order_option', to: 'calls#order_option'
   post 'confirm_order', to: 'calls#confirm_order'
 
-  get 'test_get', to: 'calls#test_get'
-
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do

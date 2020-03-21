@@ -3,7 +3,7 @@ class CallsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def incoming
-    message1 = "Herzlich willkommen beim Oma Telefon. Sagen Sie uns bitte, was Sie benötigen! Drücken Sie die 1, wenn Sie Lebensmittel brauchen, drücken Sie die zwei für anderes."
+    message1 = "Herzlich willkommen beim Oma Telefon. Sagen Sie uns bitte, was Sie benötigen! Drücken Sie die 1, wenn Sie Lebensmittel brauchen, drücken Sie die zwei für einen Gang zur Apotheke, und die 3 wenn Sie etwas anderes brauchen."
     message = Twilio::TwiML::VoiceResponse.new do |r|
       r.gather(numDigits: 1, action: "/order_option") do |g|
         g.say(message: message1, language: 'de-DE', voice: 'alice')
@@ -19,6 +19,8 @@ class CallsController < ApplicationController
       when '1'
         option = "Lebensmittel"
       when '2'
+        option = "Apotheke"
+      when '3'
         option = "anderes"
       end
 
@@ -31,7 +33,7 @@ class CallsController < ApplicationController
 
       message2 = "Sie wollen #{option}. Geben Sie uns bitte zuerst Ihre Telefonnummer. Drücken Sie die Rautetaste, wenn Sie fertig sind."
       message = Twilio::TwiML::VoiceResponse.new do |r|
-        r.gather(finishOnKey: "#{}", action: "/phone_number") do |g|
+        r.gather(finishOnKey: "#", action: "/phone_number") do |g|
           g.say(message: message2, language: 'de-DE', voice: 'alice')
         end
       end
@@ -92,17 +94,6 @@ class CallsController < ApplicationController
     message1 = "#{name} ist auf dem Weg zu Ihnen"
     message = Twilio::TwiML::VoiceResponse.new do |r|
       r.say(message: message1, language: 'de-DE', voice: 'alice')
-    end
-    render xml: message.to_xml
-  end
-
-  def test_get
-    message1 = "Herzlich willkommen beim Oma Telefon. Sagen Sie uns bitte, was Sie benötigen! Drücken Sie die 1, wenn Sie Lebensmittel brauchen, drücken Sie die zwei für anderes."
-    message = Twilio::TwiML::VoiceResponse.new do |r|
-      r.gather(numDigits: 1) do |g|
-        g.say(message: message1, language: 'de-DE', voice: 'alice')
-      end
-      r.redirect('/voice')
     end
     render xml: message.to_xml
   end
