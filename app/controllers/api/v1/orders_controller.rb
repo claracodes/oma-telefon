@@ -3,13 +3,11 @@ class Api::V1::OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, if: ->{ request.format.json? }
 
   def index
-    # orders = policy_scope(Order).where(status: :open).order(created_at: :asc)
     orders = Order.where(status: :open).order(created_at: :asc)
     render json: orders, each_serializer: OrderSerializer
   end
 
   def show
-    # authorize order
     render json: order
   end
 
