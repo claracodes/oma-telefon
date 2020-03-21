@@ -7,5 +7,5 @@ class User < ApplicationRecord
   has_many :shopping_orders, class_name: 'Order', foreign_key: 'shopper_id'
   has_many :open_orders, class_name: 'Order', foreign_key: 'owner_id'
 
-  validates :phone_number, presence: true
+  # validates :call_s_id, presence: true
 end
