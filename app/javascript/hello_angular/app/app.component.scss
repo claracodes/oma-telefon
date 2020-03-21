@@ -68,3 +68,40 @@ body {
 button:focus {
     outline: none;
 }
+
+.toolbar-logo {
+  max-width: 50px;
+}
+
+.main-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-map {
+  height: 100%;
+}
+
+app-start {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+simple-snack-bar, .mat-simple-snackbar-action {
+  color: white;
+}
+.mat-simple-snackbar-action {
+  border-radius: 4px;
+  box-shadow: 0px 0px 6px #191919;
+}
+.notification-success {
+  background: rgba(0,150,0,.75);
+}
+.notification-error {
+  background: rgba(150,0,0,.75);
+}
+.notification-notice {
+  background: rgba(33,33,33,.75);
+}

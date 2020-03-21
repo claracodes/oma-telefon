@@ -24,4 +24,8 @@ export class StartComponent {
     }
   }
 
+  resetForm() {
+    this.adressForm.reset();
+  }
+
 }
