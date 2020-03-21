@@ -22,10 +22,12 @@ class CallsController < ApplicationController
         option = "anderes"
       end
 
-      User.create(email: "oma_#{Time.now.to_i}#{rand(919)}@oma.com",
-                  password: "#{rand(100..999)}#{rand(100..999)}",
-                  senior: true,
-                  call_s_id: params["CallSid"])
+      oma = User.create(email: "oma_#{Time.now.to_i}#{rand(919)}@oma.com",
+                        password: "#{rand(100..999)}#{rand(100..999)}",
+                        senior: true,
+                        call_s_id: params["CallSid"])
+
+      Order.create!(owner: oma, order_type: option)
 
       message2 = "Sie wollen #{option}. Geben Sie uns bitte zuerst Ihre Telefonnummer. Drücken Sie die Rautetaste, wenn Sie fertig sind."
       message = Twilio::TwiML::VoiceResponse.new do |r|
@@ -56,8 +58,8 @@ class CallsController < ApplicationController
   def list
     if params["SpeechResult"]
       oma = User.find_by(call_s_id: params["CallSid"])
-      Order.create!(list: params["SpeechResult"],
-                   owner: oma)
+      Order.find(owner: oma, list: nil)
+
       message1 = "Jetzt brauchen wir nur noch Ihre Adresse"
       message = Twilio::TwiML::VoiceResponse.new do |r|
         r.gather(input: 'speech', action: '/address', language: 'de-DE') do |g|
