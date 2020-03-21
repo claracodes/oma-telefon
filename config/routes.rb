@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
 
+  get "listings", to: 'pages#listings'
+
   post 'incoming', to: 'calls#incoming'
   post 'phone_number', to: 'calls#phone_number'
   post 'list', to: 'calls#list'

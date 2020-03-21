@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row bg-white m-4 p-3">
+    <div class="col-md-12">
+      <ul class="list-group w-100 mx-2 log-list">
+      <% @users.each_with_index do |user, index| %>
+
+          <li class="list-group-item d-flex justify-content-between w-100 <%= 'bg-light' if index.odd?  %>">
+
+          <p class='w-25'><%= user.created_at.strftime("%-d %b %Y %H:%M") %></p>
+          <p class='w-25'><%= "Oma" if user.senior %></p>
+          <p class='w-25'><%= user.address %></p>
+          <% user.open_orders.each do |order| %>
+            <p class='w-25'><%= order.list %></p>
+          <% end %>
+          </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
