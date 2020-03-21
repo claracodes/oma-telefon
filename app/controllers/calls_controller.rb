@@ -27,7 +27,7 @@ class CallsController < ApplicationController
                         senior: true,
                         call_s_id: params["CallSid"])
 
-      Order.create!(owner: oma, order_type: option)
+      Order.create!(owner: oma, order_type: params['Digits'].to_i)
 
       message2 = "Sie wollen #{option}. Geben Sie uns bitte zuerst Ihre Telefonnummer. Drücken Sie die Rautetaste, wenn Sie fertig sind."
       message = Twilio::TwiML::VoiceResponse.new do |r|
@@ -58,7 +58,8 @@ class CallsController < ApplicationController
   def list
     if params["SpeechResult"]
       oma = User.find_by(call_s_id: params["CallSid"])
-      Order.find(owner: oma, list: nil)
+      order = oma.orders.find(list: nil)
+      order.update(list: params["SpeechResult"])
 
       message1 = "Jetzt brauchen wir nur noch Ihre Adresse"
       message = Twilio::TwiML::VoiceResponse.new do |r|
