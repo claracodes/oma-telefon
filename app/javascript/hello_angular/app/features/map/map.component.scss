@@ -1,0 +1,22 @@
+.map-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+    }
+}
+
+.map {
+    max-height: 80vh;
+    max-width: 80vh;
+    height: 100%;
+    width: 100%;
+}
+
+.tasks {
+    padding: 20px;
+}

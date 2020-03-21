@@ -1,8 +1,107 @@
 // Material Angular
-@import '~@angular/material/core/theming/all-theme';
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+//@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @include mat-core();
+
+$palette-primary: (
+    50: rgb(234, 245, 234),
+    100: rgb(203, 231, 203),
+    200: rgb(168, 215, 168),
+    300: rgb(133, 199, 133),
+    400: rgb(106, 187, 106),
+    500: rgb(80, 175, 80),
+    600: rgb(73, 168, 73),
+    700: rgb(64, 159, 64),
+    800: rgb(55, 150, 55),
+    900: rgb(39, 134, 39),
+    A100: rgb(200, 255, 200),
+    A200: rgb(149, 255, 149),
+    A400: rgb(98, 255, 98),
+    A700: rgb(72, 255, 72),
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$candy-app-primary: mat-palette($palette-primary);
+$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$candy-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
 
 .test {
     color: red;
+}
+
+button:focus {
+    outline: none;
+}
+
+.toolbar-logo {
+  max-width: 50px;
+}
+
+.main-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-map {
+  height: 100%;
+}
+
+app-start {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+simple-snack-bar, .mat-simple-snackbar-action {
+  color: white;
+}
+.mat-simple-snackbar-action {
+  border-radius: 4px;
+  box-shadow: 0px 0px 6px #191919;
+}
+.notification-success {
+  background: rgba(0,150,0,.75);
+}
+.notification-error {
+  background: rgba(150,0,0,.75);
+}
+.notification-notice {
+  background: rgba(33,33,33,.75);
 }
