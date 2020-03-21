@@ -86,4 +86,15 @@ class CallsController < ApplicationController
     end
     render xml: message.to_xml
   end
+
+  def confirm_order
+    shopper = User.find(params[:shopper_id])
+    name = shopper.name
+
+    message1 = "#{name} ist auf dem Weg zu Ihnen"
+    message = Twilio::TwiML::VoiceResponse.new do |r|
+      r.say(message: message1, language: 'de-DE', voice: 'alice')
+    end
+    render xml: message.to_xml
+  end
 end
