@@ -68,6 +68,7 @@ class CallsController < ApplicationController
         end
       end
     end
+    render xml: message.to_xml
   end
 
   def list
