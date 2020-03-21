@@ -1,6 +1,5 @@
 class CallsController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_after_action :verify_authorized
   skip_before_action :verify_authenticity_token
 
   def incoming

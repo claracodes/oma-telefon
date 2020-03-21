@@ -16,7 +16,6 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 
-gem 'pundit'
 gem "twilio-ruby"
 
 group :development do
