@@ -1,0 +1,15 @@
+
+     <div class="map-container">
+          <div *ngIf="options" class="map" leaflet [leafletOptions]="options" [leafletLayers]="layers">
+          </div>
+          <div class="tasks">
+               <h2>Aufträge</h2>
+               <ul>
+                    <li>Dummy 1</li>
+                    <li>Dummy 2</li>
+                    <li>Dummy 3</li>
+                    <li>Dummy 4</li>
+               </ul>
+               <button mat-raised-button color="primary" (click)="resetAdress()">Adresse zurücksetzen</button>
+          </div>
+     </div>

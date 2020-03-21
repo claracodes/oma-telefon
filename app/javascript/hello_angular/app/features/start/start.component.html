@@ -1,0 +1,28 @@
+<div class="start-wrapper">
+    <div class="start-container">
+        <div class="top-container">
+            <div class="text-container">
+                <h2>Mit Corony im Kampf gegen Corona</h2>
+                <h1>
+                    Lasst uns gemeinsam gucken,<br>
+                    ob jemand Hilfe braucht!
+                </h1>
+            </div>
+            <div class="image-container">
+                <img class="corony" src='~corony.png' />
+            </div>
+        </div>
+        <div class="form-container">
+            <form [formGroup]="adressForm" class="adress-form" (ngSubmit)="setAdress()">
+                <mat-form-field class="adress-input">
+                    <mat-label>Adresse</mat-label>
+                    <input formControlName="adress" matInput placeholder="z.B. Musterstraße 12, 12345 Musterstadt">
+                    <mat-error *ngIf="adressForm.get('adress').invalid">
+                        Es muss eine Adresse eingegeben werden!
+                    </mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary">Anzeigen</button>
+            </form>
+        </div>
+    </div>
+</div>
