@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { Order } from './types/order';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class DataService {
             }
         );
         return subject.asObservable();
+  }
+
+  public getOrders(latitude: number, longitude: number) {
+    return this.http.get<Order[]>('/api/v1/orders?latitude='+latitude+'&longitude='+longitude);
   }
 }

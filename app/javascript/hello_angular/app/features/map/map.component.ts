@@ -12,6 +12,7 @@ export class MapComponent implements OnInit {
   @Input() adress: string;
   @Input() lat: number;
   @Input() lon: number;
+  @Input() layers: any;
   @Input() localStorageKey: string;
   options: any;
   adressNotFound = false;
@@ -27,6 +28,7 @@ export class MapComponent implements OnInit {
         center: latLng(this.lat, this.lon)
       };
     }
+
   }
 
   resetAdress() {
