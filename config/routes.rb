@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'list', to: 'calls#list'
   post 'address', to: 'calls#address'
   post 'order_option', to: 'calls#order_option'
+  post 'confirm_order', to: 'calls#confirm_order'
 
   get 'test_get', to: 'calls#test_get'
 
@@ -25,4 +26,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # Sidekiq Web UI, only for admins.
+  require "sidekiq/web"
+  # authenticate :user, lambda { |u| u.admin } do
+  mount Sidekiq::Web => '/sidekiq'
+  # end
 end
