@@ -3,8 +3,8 @@ class CreateOrders < ActiveRecord::Migration[6.0]
     create_table :orders do |t|
       t.text :list
       t.integer :status, default: 1
-      t.references :owner, null: false
-      t.references :shopper, null: false
+      t.references :owner
+      t.references :shopper
 
       t.timestamps
     end
