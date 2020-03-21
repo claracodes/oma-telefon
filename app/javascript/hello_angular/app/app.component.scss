@@ -1,3 +1,8 @@
+// Material Angular
+@import '~@angular/material/core/theming/all-theme';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@include mat-core();
+
 .test {
     color: red;
 }
