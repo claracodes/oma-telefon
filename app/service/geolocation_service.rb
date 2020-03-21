@@ -1,6 +1,10 @@
 class GeolocationService
-  def self.from_adress(adress)
-    response = HTTParty.get('https://nominatim.openstreetmap.org/?q=' + adress + '&format=json')
+
+
+  def self.from_address(address)
+    return {} if address.blank?
+
+    response = HTTParty.get('https://nominatim.openstreetmap.org/?q=' + I18n.transliterate(address) + '&format=json')
 
     json = JSON.parse(response.body)
 

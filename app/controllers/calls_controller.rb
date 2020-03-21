@@ -77,7 +77,7 @@ class CallsController < ApplicationController
       address = params["SpeechResult"]
       oma.address = address
 
-      coordinates = GeolocationService.from_adress(address)
+      coordinates = GeolocationService.from_address(address)
       oma.assign_attibutes(coordinates)
 
       oma.save
