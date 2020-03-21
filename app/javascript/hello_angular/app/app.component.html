@@ -1,2 +1,9 @@
-<h1 *ngIf="name" class="test">Hello {{name}}</h1>
-<button mat-raised-button color="primary">Primary</button>
+<div class="main-wrapper">
+    <mat-toolbar>
+        <img class="toolbar-logo" src='~corony.png' />
+    </mat-toolbar>
+    
+    <app-start #start *ngIf="!adress && !lat && !lon; else logo" (onAdressChange)="onAdressChange($event)"></app-start>
+    <app-map *ngIf="adress && lat && lon" [localStorageKey]="ls_key" [adress]="adress" [lat]=lat [lon]="lon" [layers]="layers"></app-map>
+    <div *ngIf="adress && !lat && !lon">loading adress</div>
+</div>
