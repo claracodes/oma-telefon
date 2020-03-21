@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < ApplicationController
-  # skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i(index show)
   skip_before_action :verify_authenticity_token, if: ->{ request.format.json? }
 
   def index
