@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      get 'my_orders', to: 'orders#my_orders'
+
       resources :orders, only: %i[index show] do
         member do
           put :accept

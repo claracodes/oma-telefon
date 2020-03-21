@@ -19,6 +19,10 @@ class Api::V1::OrdersController < ApplicationController
     render json: order
   end
 
+  def my_orders
+    render json: Order.where(status: :accepted, shopper: current_user), each_serializer: OrderSerializer
+  end
+
   def accept
     order.update(shopper_id: current_user.id, status: :accepted)
 
