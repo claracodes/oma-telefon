@@ -16,7 +16,13 @@ Rails.application.routes.draw do
   # API
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :orders, only: %i[index show]
+      resources :orders, only: %i[index show] do
+        member do
+          put :accept
+          put :shopping_done
+          put :delivered
+        end
+      end
     end
   end
 end
