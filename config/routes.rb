@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   post 'incoming', to: 'calls#incoming'
   post 'phone_number', to: 'calls#phone_number'
+  post 'name', to: 'calls#name'
   post 'list', to: 'calls#list'
   post 'address', to: 'calls#address'
   post 'order_option', to: 'calls#order_option'
