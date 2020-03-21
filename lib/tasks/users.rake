@@ -2,9 +2,8 @@ namespace :users do
   task refetch_coordinates: :environment do
     User.find_each do |user|
       puts 'Refetching coordinates for user ' + user.id.to_s
-      coordinates = GeolocationService.from_address(user.address)
-      puts 'Got coordinates: ' + coordinates.to_s
-      user.update(coordinates)
+      user.geocode
+      puts "Got coordinates: Lat: #{user.latitude} Long: #{user.longitude}"
     end
   end
 end
