@@ -1,3 +1,5 @@
+fail 'We already seeded the data for production!' if Rails.env.production?
+
 puts 'Deleting all records'
 [
   Order,
