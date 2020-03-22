@@ -4,7 +4,7 @@
   <div class="row justify-content-center">
     <div class="col-sx-12 col-md-5 bg-white p-3 rounded">
 
-      <h2>Log in</h2>
+      <h2>Login</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
@@ -14,12 +14,13 @@
         input_html: { autocomplete: "email" } %>
         <%= f.input :password,
         required: false,
+        label: 'Passwort',
         input_html: { autocomplete: "current-password" } %>
-        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        <%= f.input :remember_me, label: 'Angemeldet bleiben', as: :boolean if devise_mapping.rememberable? %>
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Log in", class: 'btn btn-success btn-block' %>
+        <%= f.button :submit, "Einloggen", class: 'btn btn-success btn-block' %>
       </div>
       <% end %>
 

@@ -3,7 +3,7 @@
 <div class="container devise">
   <div class="row justify-content-center">
     <div class="col-sx-12 col-md-5  bg-white p-3 rounded">
-      <h2>Sign up</h2>
+      <h2>Registrierung</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.error_notification %>
@@ -15,15 +15,17 @@
         input_html: { autocomplete: "email" }%>
         <%= f.input :password,
         required: true,
-        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+        label: 'Passwort',
+        hint: ("Mindestens #{@minimum_password_length} Zeichen" if @minimum_password_length),
         input_html: { autocomplete: "new-password" } %>
         <%= f.input :password_confirmation,
+        label: 'Passwort bestätigen',
         required: true,
         input_html: { autocomplete: "new-password" } %>
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Sign up", class: 'btn btn-success btn-block' %>
+        <%= f.button :submit, "Registrieren", class: 'btn btn-success btn-block' %>
       </div>
       <% end %>
 
