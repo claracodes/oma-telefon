@@ -1,7 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone, Output, EventEmitter } from '@angular/core';
 import templateString from './map.component.html';
-import { tileLayer, latLng } from 'leaflet';
+import { tileLayer, latLng, Map, Marker } from 'leaflet';
 import './map.component.scss';
+import { Order } from 'hello_angular/app/services/types/order';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { executeOrderObject } from 'hello_angular/app/services/types/executeOrderObject';
+import { deliverOrderObject } from 'hello_angular/app/services/types/deliverOrderObject';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-map',
@@ -13,9 +18,16 @@ export class MapComponent implements OnInit {
   @Input() lat: number;
   @Input() lon: number;
   @Input() layers: any;
-  @Input() localStorageKey: string;
+  myOrders: Order[];
   options: any;
   adressNotFound = false;
+  map: Map;
+  checked = false;
+
+  @Output() executedOrder: EventEmitter<executeOrderObject> = new EventEmitter<executeOrderObject>();
+  @Output() deliveredOrder: EventEmitter<deliverOrderObject> = new EventEmitter<deliverOrderObject>();
+
+  constructor(public zone: NgZone) { }
 
   ngOnInit() {
     console.log(this.adress);
@@ -28,15 +40,40 @@ export class MapComponent implements OnInit {
         center: latLng(this.lat, this.lon)
       };
     }
-
   }
 
-  resetAdress() {
-    if (this.localStorageKey) {
-      window.localStorage.removeItem(this.localStorageKey);
-      window.localStorage.removeItem(this.localStorageKey+'_lat');
-      window.localStorage.removeItem(this.localStorageKey+'_lon');
+  invalidateSize() {
+    if (this.map) {
+      this.map.invalidateSize();
     }
+  }
+
+  onMapReady(map: Map) {
+    this.map = map;
+  }
+
+  removeMarker(marker: Marker) {
+    if (this.map.hasLayer(marker)) {
+      this.map.removeLayer(marker);
+    }
+  }
+
+  updateMyOrders(orders: Order[]) {
+    this.zone.run(() => this.myOrders = orders)
+    console.log('my orders updated in component');
+    console.log(this.myOrders);
+  }
+
+  checkedChange(event: MatCheckboxChange) {
+    this.checked = event.checked;
+  }
+
+  executeOrder(executeOrderObject: executeOrderObject) {
+    this.executedOrder.emit(executeOrderObject);
+  }
+
+  deliverOrder(deliverOrderObject: deliverOrderObject) {
+    this.deliveredOrder.emit(deliverOrderObject);
   }
   
 }

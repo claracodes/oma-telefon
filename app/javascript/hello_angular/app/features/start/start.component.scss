@@ -37,11 +37,9 @@
 .form-container {
     padding: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-}
-
-.adress-input {
-    max-width: 300px;
+    align-items: center;
 }
 
 .adress-form {
@@ -51,14 +49,35 @@
 }
   
 .adress-input {
+    max-width: 300px;
     width: 100%;
     margin-right: 20px;
+    @media (max-width: 767px) {
+        margin-right: 0;
+        max-width: unset;
+    }
+}
+
+.adress-button {
+    @media (max-width: 767px) {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
 }
 
 .corony {
     display: block;
     max-width: 150px;
     max-height: 150px;
+    width: 100%;
+    height: auto;
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+
+.wvv-logo {
+    max-width: 300px;
     width: 100%;
     height: auto;
 }

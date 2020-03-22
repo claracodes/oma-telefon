@@ -1,0 +1,4 @@
+<div *ngIf="order.status == 'shopping_done'">
+    <p><mat-checkbox [checked]="checked" color="primary" (change)="checkedChange($event)">Hast du dein Geld erhalten?</mat-checkbox></p>
+    <button mat-raised-button color="primary" class="deliver-button" (click)="deliverOrder(order)">Einkauf abgeliefert</button>               
+</div>

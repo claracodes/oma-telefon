@@ -13,10 +13,15 @@
 .map {
     max-height: 80vh;
     max-width: 80vh;
+    min-height: 40vh;
     height: 100%;
     width: 100%;
 }
 
 .tasks {
     padding: 20px;
+}
+
+.order-card {
+    margin-bottom: 10px;
 }

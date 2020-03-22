@@ -16,13 +16,14 @@
             <form [formGroup]="adressForm" class="adress-form" (ngSubmit)="setAdress()">
                 <mat-form-field class="adress-input">
                     <mat-label>Adresse</mat-label>
-                    <input formControlName="adress" matInput placeholder="z.B. Musterstraße 12, 12345 Musterstadt">
+                    <input formControlName="adress" matInput placeholder="z.B.: Musterstraße 12 12345 Musterstadt">
                     <mat-error *ngIf="adressForm.get('adress').invalid">
                         Es muss eine Adresse eingegeben werden!
                     </mat-error>
                 </mat-form-field>
-                <button mat-raised-button color="primary">Anzeigen</button>
+                <button class="adress-button" mat-raised-button color="primary">Anzeigen</button>
             </form>
+            <img class="wvv-logo" src='~Logo_Projekt_01.png' />
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@ class Api::V1::OrdersController < ApplicationController
     order.update(status: :shopping_done, total: params[:total])
 
     # Schedule twilio call / bg job
-    ConfirmOrderJob.perform_later(order.id)
+    ConfirmOrderJob.perform_later(order.id) if Rails.env.production?
 
     render json: order
   end

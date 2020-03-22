@@ -1,9 +1,9 @@
 <div class="main-wrapper">
-    <mat-toolbar>
-        <img class="toolbar-logo" src='~corony.png' />
-    </mat-toolbar>
+    <div>
+        <img class="toolbar-logo" src='~corony.png' (click)="resetAdress()" />
+    </div>
     
     <app-start #start *ngIf="!adress && !lat && !lon; else logo" (onAdressChange)="onAdressChange($event)"></app-start>
-    <app-map *ngIf="adress && lat && lon" [localStorageKey]="ls_key" [adress]="adress" [lat]=lat [lon]="lon" [layers]="layers"></app-map>
+    <app-map #map *ngIf="adress && lat && lon" [adress]="adress" [lat]=lat [lon]="lon" [layers]="layers" (executedOrder)="executeOrder($event)" (deliveredOrder)="deliverOrder($event)"></app-map>
     <div *ngIf="adress && !lat && !lon">loading adress</div>
 </div>

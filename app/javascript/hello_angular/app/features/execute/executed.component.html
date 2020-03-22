@@ -1,0 +1,10 @@
+<form *ngIf="order.status == 'accepted'" [formGroup]="executedForm" class="execute-form" (ngSubmit)="executeOrder(order)">
+     <mat-form-field class="execute-input">
+         <mat-label>Gesamtbetrag in €</mat-label>
+         <input formControlName="total" type="number" step="0.01" matInput placeholder="z.B.: 12">
+         <mat-error *ngIf="executedForm.get('total').invalid">
+             Es muss ein Betrag eingegeben werden!
+         </mat-error>
+     </mat-form-field>
+     <button class="execute-button" mat-raised-button color="primary">Einkauf erledigt</button>
+ </form>
