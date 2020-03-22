@@ -27,6 +27,7 @@ export class AppComponent {
   lon: number;
   layers: any;
   myOrders: Order[] = [];
+  loggedIn;
 
   constructor(private dataService: DataService, private notificationService: NotificationService, public zone: NgZone) {
     const ls_adress = window.localStorage.getItem(this.ls_key);
@@ -131,10 +132,9 @@ export class AppComponent {
     this.dataService.getMyOrders().subscribe(
       success => {
         this.mapComponent.updateMyOrders(success);
-        console.log('new myOrders set to:');
-        console.log(this.myOrders);
+        this.loggedIn = true;
       },
-      error => console.log('not loggedin')
+      error => this.loggedIn = false
     );
   }
 

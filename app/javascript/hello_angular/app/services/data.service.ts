@@ -47,5 +47,8 @@ export class DataService {
     return this.http.get<Order[]>('/api/v1/my_orders');
   }
 
+  public logout() {
+    return this.http.delete('/users/sign_out');
+  }
   
 }

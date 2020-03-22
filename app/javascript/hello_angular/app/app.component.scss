@@ -69,7 +69,7 @@ button:focus {
     outline: none;
 }
 
-.toolbar-logo {
+.navbar-logo {
   max-width: 50px;
   margin: 10px;
   cursor: pointer;
@@ -108,6 +108,24 @@ simple-snack-bar, .mat-simple-snackbar-action {
 }
 .notification-notice {
   background: rgba(33,33,33,.75);
+}
+
+.navbar-top {
+  display: flex;
+  justify-content: space-between;
+  background: #eee;
+  margin-bottom: 10px;
+}
+
+.navbar-links {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-links a {
+  margin-right: 10px;
 }
 
 .acceptorder {

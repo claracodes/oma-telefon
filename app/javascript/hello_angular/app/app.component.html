@@ -1,6 +1,13 @@
 <div class="main-wrapper">
-    <div>
-        <img class="toolbar-logo" src='~corony.png' (click)="resetAdress()" />
+    <div class="navbar-top">
+        <img class="navbar-logo" src='~corony.png' (click)="resetAdress()" />
+        <div *ngIf="loggedIn === false" class="navbar-links">
+            <a href="/users/sign_in">Login</a>
+            <a href="/users/sign_up">Registrieren</a>
+        </div>
+        <div *ngIf="loggedIn === true" class="navbar-links">
+            <a href="/users/sign_out">Logout</a>
+        </div>
     </div>
     
     <app-start #start *ngIf="!adress && !lat && !lon; else logo" (onAdressChange)="onAdressChange($event)"></app-start>

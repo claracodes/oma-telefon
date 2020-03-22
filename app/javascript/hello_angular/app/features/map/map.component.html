@@ -1,6 +1,11 @@
 <div class="map-container">
-     <div *ngIf="options" class="map" leaflet [leafletOptions]="options" [leafletLayers]="layers"
-          (leafletMapReady)="onMapReady($event)">
+     <div class="map-wrapper">
+          <h1 class="map-heading">Karte</h1>
+          <mat-card class="map-card">
+               <div *ngIf="options" class="map" leaflet [leafletOptions]="options" [leafletLayers]="layers"
+                    (leafletMapReady)="onMapReady($event)">
+               </div>
+          </mat-card>
      </div>
      <div *ngIf="myOrders && myOrders.length != 0" class="tasks">
           <h2>Aufträge</h2>
