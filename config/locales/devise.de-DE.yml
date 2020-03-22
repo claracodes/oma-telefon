@@ -1,4 +1,4 @@
-de:
+de-DE:
   activerecord:
     attributes:
       user:
@@ -114,8 +114,8 @@ de:
       already_signed_out: Erfolgreich abgemeldet.
       new:
         sign_in: Anmelden
-      signed_in: Erfolgreich angemeldet.
-      signed_out: Erfolgreich abgemeldet.
+      signed_in: ""
+      signed_out: ""
     shared:
       links:
         back: Zurück
