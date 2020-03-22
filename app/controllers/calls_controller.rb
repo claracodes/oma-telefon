@@ -3,12 +3,10 @@ class CallsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def incoming
-    message1 = "Herzlich willkommen beim Oma Telefon. Sagen Sie uns bitte, was Sie benötigen! Drücken Sie die 1, wenn Sie Lebensmittel brauchen, drücken Sie die zwei für einen Gang zur Apotheke, und die 3 wenn Sie etwas anderes brauchen."
     message = Twilio::TwiML::VoiceResponse.new do |r|
       r.gather(numDigits: 1, action: "/order_option") do |g|
-        g.say(message: message1, language: 'de-DE', voice: 'alice')
+        g.play(url: helpers.audio_url('0_Willkommen.wav'))
       end
-      # r.redirect('/voice')
     end
     render xml: message.to_xml
   end
@@ -17,11 +15,11 @@ class CallsController < ApplicationController
     if params['Digits']
       case params['Digits']
       when '1'
-        option = "Lebensmittel"
+        url = helpers.audio_url('1_Lebensmittel.wav')
       when '2'
-        option = "Apotheke"
+        url = helpers.audio_url('2_Apotheke.wav')
       when '3'
-        option = "anderes"
+        url = helpers.audio_url('3_Anderes.wav')
       end
 
       oma = User.create(email: "oma_#{Time.now.to_i}#{rand(919)}@oma.com",
@@ -29,12 +27,26 @@ class CallsController < ApplicationController
                         senior: true,
                         call_s_id: params["CallSid"])
 
-      Order.create!(owner: oma, order_type: params['Digits'].to_i)
+      Order.create(owner: oma, order_type: params['Digits'].to_i)
 
-      message2 = "Sie wollen #{option}. Geben Sie uns bitte zuerst Ihre Telefonnummer. Drücken Sie die Rautetaste, wenn Sie fertig sind."
       message = Twilio::TwiML::VoiceResponse.new do |r|
-        r.gather(finishOnKey: "#", action: "/phone_number") do |g|
-          g.say(message: message2, language: 'de-DE', voice: 'alice')
+        r.gather(input: 'speech', language: 'de-DE', action: "/list") do |g|
+          g.play(url: url)
+        end
+      end
+    end
+    render xml: message.to_xml
+  end
+
+  def list
+    if params["SpeechResult"]
+      oma = User.find_by(call_s_id: params["CallSid"])
+      order = oma.open_orders.find_by(list: nil)
+      order.update(list: params["SpeechResult"])
+
+      message = Twilio::TwiML::VoiceResponse.new do |r|
+        r.gather(finishOnKey: "#", action: '/phone_number') do |g|
+          g.play(url: helpers.audio_url('6_Telefonnummer.wav'))
         end
       end
     end
@@ -47,7 +59,7 @@ class CallsController < ApplicationController
       oma.phone_number = params['Digits'][0..-2]
       oma.save
 
-      message1 = "Danke, sagen Sie uns bitte auch ihren Vornamen."
+      message1 = "Danke, sagen Sie uns bitte auch Ihren Vornamen."
       message = Twilio::TwiML::VoiceResponse.new do |r|
         r.gather(input: 'speech', action: '/name', language: 'de-DE') do |g|
           g.say(message: message1, language: 'de-DE', voice: 'alice')
@@ -63,31 +75,15 @@ class CallsController < ApplicationController
       oma.name = params["SpeechResult"]
       oma.save
 
-      message1 = "Danke, sagen Sie uns nun bitte, was sie benötigen."
-      message = Twilio::TwiML::VoiceResponse.new do |r|
-        r.gather(input: 'speech', action: '/list', language: 'de-DE') do |g|
-          g.say(message: message1, language: 'de-DE', voice: 'alice')
-        end
-      end
-    end
-    render xml: message.to_xml
-  end
-
-  def list
-    if params["SpeechResult"]
-      oma = User.find_by(call_s_id: params["CallSid"])
-      order = oma.open_orders.find_by(list: nil)
-      order.update(list: params["SpeechResult"])
-
-      message1 = "Jetzt brauchen wir nur noch Ihre Adresse"
       message = Twilio::TwiML::VoiceResponse.new do |r|
         r.gather(input: 'speech', action: '/address', language: 'de-DE') do |g|
-          g.say(message: message1, language: 'de-DE', voice: 'alice')
+          g.play(url: helpers.audio_url('4_Adresse.wav'))
         end
       end
     end
     render xml: message.to_xml
   end
+
 
   def address
     if params["SpeechResult"]
@@ -95,21 +91,16 @@ class CallsController < ApplicationController
       oma.address = params["SpeechResult"]
       oma.save
 
-      message1 = "Vielen Dank!"
       message = Twilio::TwiML::VoiceResponse.new do |r|
-        r.say(message: message1, language: 'de-DE', voice: 'alice')
+        r.play(url: helpers.audio_url('7_Vielen_Dank.wav'))
       end
     end
     render xml: message.to_xml
   end
 
   def confirm_order
-    shopper = User.find(params[:shopper_id])
-    name = shopper.name
-
-    message1 = "#{name} ist auf dem Weg zu Ihnen"
     message = Twilio::TwiML::VoiceResponse.new do |r|
-      r.say(message: message1, language: 'de-DE', voice: 'alice')
+      r.play(url: helpers.audio_url('5_Besorgung_ausgeführt.wav'))
     end
     render xml: message.to_xml
   end
