@@ -20,7 +20,7 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def my_orders
-    render json: Order.where(status: :accepted, shopper: current_user), each_serializer: OrderSerializer
+    render json: Order.where(status: [:accepted, :shopping_done], shopper: current_user), each_serializer: OrderSerializer
   end
 
   def accept
